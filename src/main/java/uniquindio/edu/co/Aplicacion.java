@@ -290,10 +290,20 @@ public class Aplicacion {
 
                 case 4:
                     //Mostrar productos disponibles
+                    JOptionPane.showMessageDialog(null, "Los " + res.consultarProductosDisponibles().size() + " productos del menú son:\n" +
+                            res.consultarProductosDisponibles().toString().replace(", ", "\n").replace("[", "").replace("]", ""));
+                    break;
 
 
                 case 5:
                     //Productos que no cumplen calidad
+                    if (res.productosNoCumplenCalidad().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Todos los productos cumplen las condiciones de calidad");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Productos que no cumplen las condiciones de calidad:\n" +
+                                res.productosNoCumplenCalidad().toString().replace(", ", "\n").replace("[", "").replace("]", ""));
+                    }
+                    break;
 
 
 
@@ -497,6 +507,7 @@ public class Aplicacion {
 
                 case 12: {
                     //Cancelar pedido
+                    
 
 
                 case 13: {

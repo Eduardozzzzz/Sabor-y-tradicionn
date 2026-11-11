@@ -507,7 +507,24 @@ public class Aplicacion {
 
                 case 12: {
                     //Cancelar pedido
-                    
+                    String codigo = JOptionPane.showInputDialog("Lista de pedidos registrados:\n" +
+                            res.getListaPedidos().toString().replace(", ", "\n").replace("[", "").replace("]", "") + "\n\n" +
+                            "Ingrese el código del pedido a cancelar: ");
+                    if (codigo == null) break;
+                    Pedido pedido = res.buscarPedido(codigo);
+                    if (pedido == null) {
+                        JOptionPane.showMessageDialog(null, "Pedido no encontrado");
+                        break;
+                    }
+                    try {
+                        pedido.cancelar();
+                        JOptionPane.showMessageDialog(null, "Pedido cancelado");
+                    } catch (IllegalStateException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                    }
+                    break;
+                }
+
 
 
                 case 13: {

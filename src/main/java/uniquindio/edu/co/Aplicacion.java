@@ -212,6 +212,79 @@ public class Aplicacion {
 
                 case 3: {
                     //Registrar postre
+                    String codigo = JOptionPane.showInputDialog("Ingrese el código del postre: ");
+                    if (codigo == null) break;
+                    String nombre = JOptionPane.showInputDialog("Ingrese el nombre del postre: ");
+                    if (nombre == null) break;
+                    String descripcion = JOptionPane.showInputDialog("Ingrese la descripción: ");
+                    if (descripcion == null) break;
+                    Double precioBase = null;
+                    while (precioBase == null) {
+                        String entrada = JOptionPane.showInputDialog("Ingrese el precio base: ");
+                        if (entrada == null) break;
+                        try {
+                            precioBase = Double.parseDouble(entrada.trim());
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Precio inválido, intente de nuevo.");
+                        }
+                    }
+                    if (precioBase == null) break;
+                    Integer tiempo = null;
+                    while (tiempo == null) {
+                        String entrada = JOptionPane.showInputDialog("Ingrese el tiempo de preparación en minutos: ");
+                        if (entrada == null) break;
+                        try {
+                            tiempo = Integer.parseInt(entrada.trim());
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Tiempo inválido, intente de nuevo.");
+                        }
+                    }
+                    if (tiempo == null) break;
+                    Double gramos = null;
+                    while (gramos == null) {
+                        String entrada = JOptionPane.showInputDialog("Ingrese el peso en gramos: ");
+                        if (entrada == null) break;
+                        try {
+                            gramos = Double.parseDouble(entrada.trim());
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Peso inválido, intente de nuevo.");
+                        }
+                    }
+                    if (gramos == null) break;
+                    Double temperaturaAlmacenamiento = null;
+                    while (temperaturaAlmacenamiento == null) {
+                        String entrada = JOptionPane.showInputDialog("Ingrese la temperatura de almacenamiento en °C: ");
+                        if (entrada == null) break;
+                        try {
+                            temperaturaAlmacenamiento = Double.parseDouble(entrada.trim());
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Temperatura inválida, intente de nuevo.");
+                        }
+                    }
+                    if (temperaturaAlmacenamiento == null) break;
+                    Refrigeracion refrigeracion = null;
+                    while (refrigeracion == null) {
+                        String entrada = JOptionPane.showInputDialog("¿El postre requiere refrigeración?\n- Si\n- No");
+                        if (entrada == null) break;
+                        try {
+                            refrigeracion = Refrigeracion.valueOf(entrada.trim().toUpperCase());
+                        } catch (IllegalArgumentException e) {
+                            JOptionPane.showMessageDialog(null, "'" + entrada + "' no es una opción válida.");
+                        }
+                    }
+                    if (refrigeracion == null) break;
+                    try {
+                        Postre postre = new Postre(codigo, nombre, descripcion, precioBase, tiempo, gramos, temperaturaAlmacenamiento, refrigeracion);
+                        if (res.registrarProducto(postre)) {
+                            JOptionPane.showMessageDialog(null, "Postre registrado correctamente.\nPrecio de venta: $" + postre.calcularPrecioVenta());
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Ya existe un producto con ese código");
+                        }
+                    } catch (IllegalArgumentException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                    }
+                    break;
+                }
 
 
 

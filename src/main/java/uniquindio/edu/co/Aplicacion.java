@@ -46,11 +46,168 @@ public class Aplicacion {
 
                 case 1: {
                     //Registrar plato fuerte
+                    String codigo = JOptionPane.showInputDialog("Ingrese el código del plato fuerte: ");
+                    if (codigo == null) break;
+                    String nombre = JOptionPane.showInputDialog("Ingrese el nombre del plato fuerte: ");
+                    if (nombre == null) break;
+                    String descripcion = JOptionPane.showInputDialog("Ingrese la descripción: ");
+                    if (descripcion == null) break;
+                    Double precioBase = null;
+                    while (precioBase == null) {
+                        String entrada = JOptionPane.showInputDialog("Ingrese el precio base: ");
+                        if (entrada == null) break;
+                        try {
+                            precioBase = Double.parseDouble(entrada.trim());
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Precio inválido, intente de nuevo.");
+                        }
+                    }
+                    if (precioBase == null) break;
+                    Integer tiempo = null;
+                    while (tiempo == null) {
+                        String entrada = JOptionPane.showInputDialog("Ingrese el tiempo de preparación en minutos: ");
+                        if (entrada == null) break;
+                        try {
+                            tiempo = Integer.parseInt(entrada.trim());
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Tiempo inválido, intente de nuevo.");
+                        }
+                    }
+                    if (tiempo == null) break;
+                    Double gramos = null;
+                    while (gramos == null) {
+                        String entrada = JOptionPane.showInputDialog("Ingrese el peso en gramos: ");
+                        if (entrada == null) break;
+                        try {
+                            gramos = Double.parseDouble(entrada.trim());
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Peso inválido, intente de nuevo.");
+                        }
+                    }
+                    if (gramos == null) break;
+                    TipoPreparacion tipoPreparacion = null;
+                    while (tipoPreparacion == null) {
+                        String entrada = JOptionPane.showInputDialog("Ingrese el tipo de preparación:\n- Asado\n- Frito\n- Horneado\n- A la plancha");
+                        if (entrada == null) break;
+                        try {
+                            tipoPreparacion = TipoPreparacion.valueOf(entrada.trim().toUpperCase().replace(" ", "_"));
+                        } catch (IllegalArgumentException e) {
+                            JOptionPane.showMessageDialog(null, "'" + entrada + "' no es un tipo de preparación válido.");
+                        }
+                    }
+                    if (tipoPreparacion == null) break;
+                    ControlCoccion controlCoccion = null;
+                    while (controlCoccion == null) {
+                        String entrada = JOptionPane.showInputDialog("¿Superó el control de cocción?\n- Si\n- No");
+                        if (entrada == null) break;
+                        try {
+                            controlCoccion = ControlCoccion.valueOf(entrada.trim().toUpperCase());
+                        } catch (IllegalArgumentException e) {
+                            JOptionPane.showMessageDialog(null, "'" + entrada + "' no es una opción válida.");
+                        }
+                    }
+                    if (controlCoccion == null) break;
+                    try {
+                        PlatoFuerte plato = new PlatoFuerte(codigo, nombre, descripcion, precioBase, tiempo, gramos, tipoPreparacion, controlCoccion);
+                        if (res.registrarProducto(plato)) {
+                            JOptionPane.showMessageDialog(null, "Plato fuerte registrado correctamente.\nPrecio de venta: $" + plato.calcularPrecioVenta());
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Ya existe un producto con ese código");
+                        }
+                    } catch (IllegalArgumentException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                    }
+                    break;
+                }
 
 
 
                 case 2: {
                     //Registrar bebida
+                    String codigo = JOptionPane.showInputDialog("Ingrese el código de la bebida: ");
+                    if (codigo == null) break;
+                    String nombre = JOptionPane.showInputDialog("Ingrese el nombre de la bebida: ");
+                    if (nombre == null) break;
+                    String descripcion = JOptionPane.showInputDialog("Ingrese la descripción: ");
+                    if (descripcion == null) break;
+                    Double precioBase = null;
+                    while (precioBase == null) {
+                        String entrada = JOptionPane.showInputDialog("Ingrese el precio base: ");
+                        if (entrada == null) break;
+                        try {
+                            precioBase = Double.parseDouble(entrada.trim());
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Precio inválido, intente de nuevo.");
+                        }
+                    }
+                    if (precioBase == null) break;
+                    Integer tiempo = null;
+                    while (tiempo == null) {
+                        String entrada = JOptionPane.showInputDialog("Ingrese el tiempo de preparación en minutos: ");
+                        if (entrada == null) break;
+                        try {
+                            tiempo = Integer.parseInt(entrada.trim());
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Tiempo inválido, intente de nuevo.");
+                        }
+                    }
+                    if (tiempo == null) break;
+                    Double mililitros = null;
+                    while (mililitros == null) {
+                        String entrada = JOptionPane.showInputDialog("Ingrese el volumen en mililitros: ");
+                        if (entrada == null) break;
+                        try {
+                            mililitros = Double.parseDouble(entrada.trim());
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Volumen inválido, intente de nuevo.");
+                        }
+                    }
+                    if (mililitros == null) break;
+                    Double temperaturaServicio = null;
+                    while (temperaturaServicio == null) {
+                        String entrada = JOptionPane.showInputDialog("Ingrese la temperatura de servicio en °C: ");
+                        if (entrada == null) break;
+                        try {
+                            temperaturaServicio = Double.parseDouble(entrada.trim());
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Temperatura inválida, intente de nuevo.");
+                        }
+                    }
+                    if (temperaturaServicio == null) break;
+                    Temperatura temperatura = null;
+                    while (temperatura == null) {
+                        String entrada = JOptionPane.showInputDialog("Ingrese la temperatura de la bebida:\n- Fría\n- Caliente");
+                        if (entrada == null) break;
+                        try {
+                            temperatura = Temperatura.valueOf(entrada.trim().toUpperCase());
+                        } catch (IllegalArgumentException e) {
+                            JOptionPane.showMessageDialog(null, "'" + entrada + "' no es una temperatura válida.");
+                        }
+                    }
+                    if (temperatura == null) break;
+                    Preparacion preparacion = null;
+                    while (preparacion == null) {
+                        String entrada = JOptionPane.showInputDialog("Ingrese el tipo de preparación:\n- Especial\n- Común");
+                        if (entrada == null) break;
+                        try {
+                            preparacion = Preparacion.valueOf(entrada.trim().toUpperCase());
+                        } catch (IllegalArgumentException e) {
+                            JOptionPane.showMessageDialog(null, "'" + entrada + "' no es una preparación válida.");
+                        }
+                    }
+                    if (preparacion == null) break;
+                    try {
+                        Bebida bebida = new Bebida(codigo, nombre, descripcion, precioBase, tiempo, mililitros, temperaturaServicio, temperatura, preparacion);
+                        if (res.registrarProducto(bebida)) {
+                            JOptionPane.showMessageDialog(null, "Bebida registrada correctamente.\nPrecio de venta: $" + bebida.calcularPrecioVenta());
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Ya existe un producto con ese código");
+                        }
+                    } catch (IllegalArgumentException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                    }
+                    break;
+                }
 
 
                 case 3: {
